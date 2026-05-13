@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Portfolio — Arjun Krishnan</title>
+
+  <!-- External CSS: Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+  <!-- Internal CSS -->
+  <style>
+    /* ─── CSS Variables ─────────────────────────────────── */
+    :root {
+      --ink:       #0e0e11;
+      --cream:     #f5f0e8;
+      --gold:      #c9a84c;
+      --gold-lt:   #e8d59a;
+      --rust:      #b84a2e;
+      --slate:     #3c4a5c;
+      --slate-lt:  #d4dae3;
+      --white:     #ffffff;
+      --radius:    6px;
+      --transition: 0.28s cubic-bezier(0.4,0,0.2,1);
+      --shadow:    0 4px 24px rgba(14,14,17,0.12);
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+      /* Inline background pattern */
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(201,168,76,0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(60,74,92,0.10) 0%, transparent 45%);
+    }
+
+    /* ─── College Header / Logo ─────────────────────────── */
+    .college-header {
+      background: var(--ink);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 16px 48px;
+      border-bottom: 3px solid var(--gold);
+    }
+
+    .college-logo {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+
+    .college-info h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.02em;
+      color: var(--gold);
+    }
+    .college-info p {
+      font-size: 0.78rem;
+      color: var(--slate-lt);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── Navigation ────────────────────────────────────── */
+    nav {
+      background: var(--slate);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      gap: 4px;
+      padding: 0 24px;
+    }
+
+    nav ul li a {
+      display: block;
+      padding: 14px 22px;
+      color: var(--slate-lt);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color var(--transition);
+    }
+
+    /* Hover underline effect */
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 22px;
+      right: 22px;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    nav ul li a:hover {
+      color: var(--gold);
+    }
+    nav ul li a:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* ─── Sections ──────────────────────────────────────── */
+    section {
+      max-width: 1020px;
+      margin: 64px auto;
+      padding: 0 24px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--ink);
+      margin-bottom: 32px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 48px;
+      height: 3px;
+      background: var(--gold);
+    }
+
+    /* ─── Profile Section ───────────────────────────────── */
+    #profile .profile-card {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 48px;
+      align-items: center;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--gold);
+    }
+
+    .profile-avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--gold);
+      /* Placeholder gradient avatar */
+      background: linear-gradient(135deg, var(--slate) 0%, var(--gold) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--white);
+    }
+
+    .profile-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 6px;
+    }
+
+    .profile-info .tagline {
+      color: var(--rust);
+      font-weight: 500;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .profile-info p { color: #4a4a54; margin-bottom: 18px; }
+
+    .profile-details {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .profile-details li {
+      font-size: 0.88rem;
+      color: var(--slate);
+    }
+    .profile-details li span {
+      font-family: 'DM Mono', monospace;
+      color: var(--rust);
+      margin-right: 6px;
+      font-size: 0.8rem;
+    }
+
+    /* External link styling */
+    .btn-link {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 9px 22px;
+      background: var(--ink);
+      color: var(--gold);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      border-radius: var(--radius);
+      transition: background var(--transition), color var(--transition);
+    }
+    .btn-link:hover {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    /* ─── Skills Section ────────────────────────────────── */
+    #skills .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 24px;
+    }
+
+    .skill-category {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--gold);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .skill-category:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(14,14,17,0.16);
+    }
+
+    .skill-category h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+      color: var(--slate);
+    }
+
+    .skill-category ul { list-style: none; }
+    .skill-category ul li {
+      padding: 5px 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--cream);
+    }
+    .skill-category ul li::before {
+      content: '▸';
+      color: var(--gold);
+      font-size: 0.75rem;
+    }
+
+    /* Skill bar */
+    .skill-bar {
+      margin-top: 16px;
+    }
+    .skill-bar-item { margin-bottom: 10px; }
+    .skill-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--slate);
+      margin-bottom: 4px;
+    }
+    .skill-bar-track {
+      height: 6px;
+      background: var(--cream);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--rust));
+      border-radius: 99px;
+      animation: fillBar 1.2s ease both;
+    }
+    @keyframes fillBar {
+      from { width: 0 !important; }
+    }
+
+    /* ─── Projects Table ────────────────────────────────── */
+    #projects .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      font-size: 0.9rem;
+    }
+
+    thead {
+      background: var(--ink);
+      color: var(--gold);
+    }
+
+    thead th {
+      padding: 16px 20px;
+      text-align: left;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--cream);
+      transition: background var(--transition);
+    }
+    tbody tr:hover { background: #fdfaf4; }
+    tbody tr:last-child { border-bottom: none; }
+
+    tbody td {
+      padding: 14px 20px;
+      vertical-align: middle;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .badge-green  { background: #d1f5e0; color: #1a6b3c; }
+    .badge-blue   { background: #d1e8f5; color: #1a4a6b; }
+    .badge-orange { background: #fde8d1; color: #7a3a0a; }
+
+    .table-link {
+      color: var(--rust);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      border-bottom: 1px dashed var(--rust);
+      transition: color var(--transition);
+    }
+    .table-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ─── Contact Form ──────────────────────────────────── */
+    #contact .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 48px;
+    }
+
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+
+    .contact-info ul { list-style: none; }
+    .contact-info ul li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--slate-lt);
+      font-size: 0.9rem;
+      color: var(--slate);
+      display: flex;
+      gap: 10px;
+    }
+    .contact-info ul li .icon {
+      font-style: normal;
+      width: 22px;
+      text-align: center;
+    }
+    .contact-info a { color: var(--rust); text-decoration: none; }
+    .contact-info a:hover { text-decoration: underline; }
+
+    /* Form styling */
+    form {
+      background: var(--white);
+      padding: 36px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 15px;
+      border: 1.5px solid var(--slate-lt);
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem;
+      color: var(--ink);
+      background: var(--cream);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.18);
+      background: var(--white);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--ink);
+      color: var(--gold);
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.88rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .form-submit:hover {
+      background: var(--gold);
+      color: var(--ink);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Footer ────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: var(--slate-lt);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.82rem;
+      margin-top: 80px;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer strong { color: var(--gold); }
+
+    /* ─── Responsive ────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .college-header { padding: 14px 20px; }
+      nav ul { flex-wrap: wrap; padding: 6px; }
+      nav ul li a { padding: 10px 14px; font-size: 0.75rem; }
+
+      #profile .profile-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .profile-avatar { margin: 0 auto; }
+      .profile-details { grid-template-columns: 1fr; }
+
+      #contact .contact-wrap { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .section-title { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════ COLLEGE HEADER ══════════════════════ -->
+  <header class="college-header">
+    <!-- College SVG Logo (inline) -->
+    <svg class="college-logo" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="College Logo">
+      <circle cx="32" cy="32" r="30" stroke="#c9a84c" stroke-width="2.5"/>
+      <path d="M12 36 L32 18 L52 36" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="20" y="36" width="24" height="14" rx="1" fill="none" stroke="#c9a84c" stroke-width="2"/>
+      <rect x="27" y="40" width="10" height="10" rx="1" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+      <line x1="32" y1="18" x2="32" y2="13" stroke="#c9a84c" stroke-width="2"/>
+      <circle cx="32" cy="11" r="2.5" fill="#c9a84c"/>
+      <path d="M20 36 V32 L32 22 L44 32 V36" stroke="none"/>
+    </svg>
+
+    <div class="college-info">
+      <h1>Government College of Engineering</h1>
+      <p>Erode &nbsp;·&nbsp; Department of Computer Science &amp; Engineering &nbsp;·&nbsp; Est. 1985</p>
+    </div>
+  </header>
+
+  <!-- ══════════════════════ NAVIGATION ══════════════════════════ -->
+  <nav aria-label="Portfolio Navigation">
+    <ul>
+      <li><a href="#profile">Profile</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://github.com" target="_blank" rel="noopener">GitHub ↗</a></li>
+      <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══════════════════════ PROFILE SECTION ═════════════════════ -->
+  <section id="profile">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Student Profile</h2>
+
+    <div class="profile-card">
+      <!-- Placeholder avatar with initials -->
+      <div class="profile-avatar" aria-label="Student photo placeholder">AK</div>
+
+      <div class="profile-info">
+        <h2>Arjun Krishnan</h2>
+        <p class="tagline">B.E. Computer Science &amp; Engineering &nbsp;·&nbsp; Final Year</p>
+        <p>
+          A passionate software developer with a strong foundation in full-stack web development,
+          data structures, and machine learning. I love building things that make a real difference —
+          from accessible web apps to data-driven tools. Currently seeking internship and project
+          collaboration opportunities.
+        </p>
+
+        <ul class="profile-details">
+          <li><span>▸ REG</span> 21CS1042</li>
+          <li><span>▸ CGPA</span> 8.9 / 10.0</li>
+          <li><span>▸ BATCH</span> 2021 – 2025</li>
+          <li><span>▸ DEPT</span> CSE</li>
+          <li><span>▸ EMAIL</span> arjun@gce.ac.in</li>
+          <li><span>▸ PHONE</span> +91-98400-00000</li>
+        </ul>
+
+        <!-- External hyperlink -->
+        <a class="btn-link" href="https://drive.google.com" target="_blank" rel="noopener">
+          ↓ Download Résumé
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ SKILLS SECTION ══════════════════════ -->
+  <section id="skills">
+    <p class="section-label">Expertise</p>
+    <h2 class="section-title">Skills</h2>
+
+    <div class="skills-grid">
+
+      <div class="skill-category">
+        <h3>Languages</h3>
+        <ul>
+          <li>Python</li>
+          <li>JavaScript / TypeScript</li>
+          <li>Java</li>
+          <li>C / C++</li>
+          <li>SQL</li>
+        </ul>
+      </div>
+
+      <div class="skill-category">
+        <h3>Web Development</h3>
+        <ul>
+          <li>HTML5 &amp; CSS3</li>
+          <li>React.js</li>
+          <li>Node.js &amp; Express</li>
+          <li>REST APIs</li>
+          <li>MongoDB / PostgreSQL</li>
+        </ul>
+      </div>
+
+      <div class="skill-category">
+        <h3>Tools &amp; Platforms</h3>
+        <ul>
+          <li>Git &amp; GitHub</li>
+          <li>Docker</li>
+          <li>Linux / Bash</li>
+          <li>VS Code</li>
+          <li>Figma</li>
+        </ul>
+      </div>
+
+      <div class="skill-category">
+        <h3>Proficiency</h3>
+        <div class="skill-bar">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>Python</span><span>90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>JavaScript</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>React</span><span>80%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>Java</span><span>75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>SQL</span><span>70%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════ PROJECTS TABLE ══════════════════════ -->
+  <section id="projects">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Project Details</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Project Title</th>
+            <th>Technologies</th>
+            <th>Duration</th>
+            <th>Status</th>
+            <th>Repository</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td><strong>SmartFarm IoT Dashboard</strong><br><small style="color:#888">Real-time crop monitoring via sensors</small></td>
+            <td>React, Node.js, MQTT, MongoDB</td>
+            <td>Jan – Apr 2024</td>
+            <td><span class="badge badge-green">Completed</span></td>
+            <td><a class="table-link" href="https://github.com" target="_blank" rel="noopener">View ↗</a></td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td><strong>AI Resume Screener</strong><br><small style="color:#888">NLP-powered candidate ranking system</small></td>
+            <td>Python, spaCy, Flask, PostgreSQL</td>
+            <td>Aug – Nov 2024</td>
+            <td><span class="badge badge-green">Completed</span></td>
+            <td><a class="table-link" href="https://github.com" target="_blank" rel="noopener">View ↗</a></td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td><strong>CampusConnect App</strong><br><small style="color:#888">Student event &amp; notice board platform</small></td>
+            <td>React Native, Firebase, Node.js</td>
+            <td>Jan – May 2025</td>
+            <td><span class="badge badge-blue">In Progress</span></td>
+            <td><a class="table-link" href="https://github.com" target="_blank" rel="noopener">View ↗</a></td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td><strong>Handwritten Digit Recogniser</strong><br><small style="color:#888">CNN model trained on MNIST dataset</small></td>
+            <td>Python, TensorFlow, Keras</td>
+            <td>Jun – Jul 2023</td>
+            <td><span class="badge badge-green">Completed</span></td>
+            <td><a class="table-link" href="https://github.com" target="_blank" rel="noopener">View ↗</a></td>
+          </tr>
+          <tr>
+            <td>05</td>
+            <td><strong>E-Commerce Price Tracker</strong><br><small style="color:#888">Automated price alert browser extension</small></td>
+            <td>JavaScript, Chrome API, Python</td>
+            <td>Sep 2025 – Ongoing</td>
+            <td><span class="badge badge-orange">Planned</span></td>
+            <td><span style="color:#bbb;font-size:0.82rem;">— TBD —</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ CONTACT FORM ════════════════════════ -->
+  <section id="contact">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Contact</h2>
+
+    <div class="contact-wrap">
+
+      <div class="contact-info">
+        <h3>Let's Connect</h3>
+        <p style="color:#555;font-size:0.9rem;margin-bottom:20px;">
+          Open to internships, collaborations, and interesting projects.
+          Feel free to reach out!
+        </p>
+        <ul>
+          <li>
+            <i class="icon">✉</i>
+            <a href="mailto:arjun@gce.ac.in">arjun@gce.ac.in</a>
+          </li>
+          <li>
+            <i class="icon">☎</i>
+            <span>+91-98400-00000</span>
+          </li>
+          <li>
+            <i class="icon">⌂</i>
+            <span>Erode, Tamil Nadu, India</span>
+          </li>
+          <li>
+            <i class="icon">⊙</i>
+            <a href="https://linkedin.com" target="_blank" rel="noopener">linkedin.com/in/arjunkrishnan</a>
+          </li>
+          <li>
+            <i class="icon">◈</i>
+            <a href="https://github.com" target="_blank" rel="noopener">github.com/arjunkrishnan</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Form -->
+      <form action="#" method="post" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Priya" required />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Ramesh" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="priya@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <select id="subject" name="subject">
+            <option value="">Select a topic…</option>
+            <option value="internship">Internship Opportunity</option>
+            <option value="collab">Project Collaboration</option>
+            <option value="feedback">Feedback</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Write your message here…" required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════ FOOTER ══════════════════════════════ -->
+  <footer>
+    <p>
+      &copy; 2025 <strong>Arjun Krishnan</strong> &nbsp;·&nbsp;
+      B.E. CSE — Government College of Engineering, Erode &nbsp;·&nbsp;
+      Built with <span style="color:#c9a84c">♥</span> using pure HTML &amp; CSS &nbsp;·&nbsp;
+      <a href="https://github.com" target="_blank" rel="noopener">Source Code ↗</a>
+    </p>
+  </footer>
+
+  <!-- Inline JS for form feedback -->
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = '✓ Message Sent!';
+      btn.style.background = '#1a6b3c';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = '';
+        btn.style.color = '';
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
